@@ -43,7 +43,36 @@ RSpec.describe Product, type: :model do
       )
       expect(Product.alphabetical).to eq [c, b, a]
     end
-
   end
+
+  describe "Discount amount" do
+    it "return 0 discount amount when product price < 100000" do
+      a = Product.new(
+          price_vnd: 99000
+      )
+      expect(a.discount_amount).to eq 0
+    end
+
+    it "return 42k when product price is 200000" do
+      a = Product.new(price_vnd: 200000)
+      expect(a.discount_amount). to eq 42000
+    end
+
+    it "return 96k when product price is 300000" do
+      a = Product.new(price_vnd: 300000)
+      expect(a.discount_amount). to eq 93000
+    end
+
+    it "return 155k when product price is 500000" do
+      a = Product.new(price_vnd: 500000)
+      expect(a.discount_amount). to eq 155000
+    end
+
+    it "return 369k when product price is 900000" do
+      a = Product.new(price_vnd: 900000)
+      expect(a.discount_amount). to eq 369000
+    end
+  end
+
 end
 
